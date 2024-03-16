@@ -7,6 +7,7 @@ Clone the project with
 
 Start the project with
 ```
+  npm install
   npm run build
   npm run start
 ```
