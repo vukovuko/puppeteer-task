@@ -1,8 +1,12 @@
-import { fetchProductsFromHomepage } from './contollers/controller';
+import { fetchProductsFromHomepage } from './controllers/controller';
 
 const startScraping = async () => {
-  const products = await fetchProductsFromHomepage();
-  console.log(products);
+  try {
+    const products = await fetchProductsFromHomepage();
+    console.log(products);
+  } catch (error) {
+    console.error("Error during scraping:", error);
+  }
 };
 
-startScraping().catch(console.error);
+startScraping();

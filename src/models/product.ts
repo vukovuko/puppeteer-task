@@ -11,9 +11,9 @@ export const createProduct = (
   name: string,
   price: string,
   url: string,
-  description?: string,
-  availableSizes?: string[],
-  imageUrl?: string
+  description: string = '',
+  availableSizes: string[] = [],
+  imageUrl: string = ''
 ): Product => ({
   name,
   price,
