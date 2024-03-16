@@ -1,0 +1,20 @@
+{
+  "name": "prioritysofttask2",
+  "version": "1.0.0",
+  "description": "Priority Soft. Assignment",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc-watch --onSuccess \"node dist/index.js\""
+  },
+  "author": "Vuko Vukasinovic",
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer": "^22.5.0",
+    "typescript": "^5.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.28"
+  }
+}
