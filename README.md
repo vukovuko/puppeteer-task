@@ -29,8 +29,13 @@ Or you can do it manually by installing the dependencies and starting the projec
 ```
 You can use any other package manager such as yarn or pnpm.
 
-**EXPERIMENTAL: Alternative docker startup:
+#### **EXPERIMENTAL: Alternative docker startup:
 https://github.com/vukovuko/puppeteer-task/tree/feature/6---dockerizing
+```
+ git checkout feature/6---dockerizing
+ docker build -t puppeteer-app .
+ docker run -p 4000:4000 puppeteer-app
+```
 
 ### Assumptions made during development
 
