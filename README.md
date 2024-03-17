@@ -37,6 +37,8 @@ https://github.com/vukovuko/puppeteer-task/tree/feature/6---dockerizing
  docker run -p 4000:4000 puppeteer-app
 ```
 
+After finishing the program you should have JSON file called 'scrapedProducts.json' inside the directory.
+
 ### Assumptions made during development
 
 This script is developed and tested on Node.js version v20.10.0 on Windows 10 and on WSL2 (Windows Subsystem for Linux).
