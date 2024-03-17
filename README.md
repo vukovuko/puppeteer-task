@@ -20,6 +20,9 @@ Install the dependencies and start the project
 ```
 or use any other package manager such as yarn, pnpm.
 
+**Alternative experimental docker feature:
+https://github.com/vukovuko/puppeteer-task/tree/feature/6---dockerizing
+
 ### Assumptions made during development
 
 This script is developed and tested on Node.js version v20.10.0.
