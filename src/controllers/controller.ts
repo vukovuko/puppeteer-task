@@ -14,8 +14,10 @@ export const scrapeEtsy = async () => {
   const browser = await puppeteer.launch({ headless: false, defaultViewport: null });
   try {
     const page = await browser.newPage();
+
     await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36');
     await page.setExtraHTTPHeaders({ 'Accept-Language': 'en-US,en;q=0.9' });
+
     await page.goto('https://www.etsy.com', { waitUntil: 'networkidle0' });
     await page.waitForSelector('[data-palette-listing-id]', { visible: true, timeout: 30000 });
 
@@ -26,9 +28,14 @@ export const scrapeEtsy = async () => {
     // Product Detail Extraction for each product
     const detailedProducts = [];
     for (const product of productsData) {
-      const details = await fetchProductDetails(browser, product.url);
-      if (details) {
-        detailedProducts.push(createProduct(product.name, product.price, product.url, details.description, details.availableSizes, details.imageUrl));
+      try {
+        const details = await fetchProductDetails(browser, product.url);
+        if (details) {
+          detailedProducts.push(createProduct(product.name, product.price, product.url, details.description, details.availableSizes, details.imageUrl));
+        }
+      } catch (error) {
+        console.error(`An error occurred while fetching details for ${product.url}:`, error);
+        continue;
       }
     }
 
@@ -39,6 +46,7 @@ export const scrapeEtsy = async () => {
       console.log("Product added to cart.");
     } else {
       console.log("No products found or unable to fetch product details.");
+      return productsData;
     }
 
     return detailedProducts;
@@ -83,7 +91,7 @@ async function simulateAddToCart(browser: Browser, productUrl: string) {
   const textAreaSelector = '#listing-page-personalization-textarea';
   const textAreaExists = await page.$(textAreaSelector);
   if (textAreaExists) {
-    await page.type(textAreaSelector, PERSONALIZATION_TEXT, { delay: 100 });
+    await page.type(textAreaSelector, PERSONALIZATION_TEXT, { delay: TYPING_DELAY });
   }
 
   const addToCartButtonSelector = '.add-to-cart-form button[type="submit"]';
