@@ -11,7 +11,7 @@ const TYPING_DELAY = 100;
 puppeteer.use(AdblockerPlugin()).use(StealthPlugin());
 
 export const scrapeEtsy = async () => {
-  const browser = await puppeteer.launch({ headless: false, defaultViewport: null });
+  const browser = await puppeteer.launch({ headless: true });
   try {
     const page = await browser.newPage();
 
