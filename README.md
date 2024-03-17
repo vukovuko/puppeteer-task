@@ -21,15 +21,15 @@ OR on Linux or Max
 ```
 **Must have google-chrome installed and up to the latest version.
 
-Install the dependencies and start the project
+Or you can do it manually by installing the dependencies and starting the project
 ```
   npm install
   npm run build
   npm run start
 ```
-or use any other package manager such as yarn, pnpm.
+or using any other package manager such as yarn or pnpm.
 
-**Alternative experimental docker feature:
+**EXPERIMENTAL: Alternative docker startup:
 https://github.com/vukovuko/puppeteer-task/tree/feature/6---dockerizing
 
 ### Assumptions made during development
