@@ -15,7 +15,7 @@ On Windows run
 ```
  .\setup.bat
 ```
-OR on Linux or Max
+On Linux or Mac
 ```
  ./setup.sh
 ```
