@@ -3,6 +3,7 @@ import { Product } from '../models/product';
 
 export const extractProducts = async (page: Page): Promise<Product[]> => {
   return await page.evaluate(() => {
+    // Evaluate cannot use module functions due to browser context
     return Array.from(document.querySelectorAll('[data-palette-listing-id]')).map(el => {
       const name = (el.querySelector('h3') as HTMLHeadingElement)?.textContent?.trim() ?? 'Unknown';
       const url = (el.querySelector('a') as HTMLAnchorElement)?.href ?? 'Unknown URL';
