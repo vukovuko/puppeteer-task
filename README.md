@@ -11,16 +11,14 @@ Go to the main directory
 ```
   cd puppeteer-task
 ```
-Run 
+On Windows run
 ```
  .\setup.bat
 ```
-on Windows 
-OR
+OR on Linux or Max
 ```
  ./setup.sh
 ```
-on Linux.
 **Must have google-chrome installed and up to the latest version.
 
 Install the dependencies and start the project
