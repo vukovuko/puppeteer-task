@@ -34,7 +34,7 @@ https://github.com/vukovuko/puppeteer-task/tree/feature/6---dockerizing
 
 ### Assumptions made during development
 
-This script is developed and tested on Node.js version v20.10.0.
+This script is developed and tested on Node.js version v20.10.0 on Windows 10 and on WSL2 (Windows Subsystem for Linux).
 The target website structure is assumed to remain constant.
 
 ### Potential challenges
