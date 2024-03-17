@@ -27,7 +27,7 @@ Or you can do it manually by installing the dependencies and starting the projec
   npm run build
   npm run start
 ```
-or using any other package manager such as yarn or pnpm.
+You can use any other package manager such as yarn or pnpm.
 
 **EXPERIMENTAL: Alternative docker startup:
 https://github.com/vukovuko/puppeteer-task/tree/feature/6---dockerizing
