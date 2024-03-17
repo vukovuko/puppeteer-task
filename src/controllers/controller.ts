@@ -21,11 +21,11 @@ export const scrapeEtsy = async () => {
     await page.goto('https://www.etsy.com', { waitUntil: 'networkidle0' });
     await page.waitForSelector('[data-palette-listing-id]', { visible: true, timeout: 30000 });
 
-    // Product Discovery
+    // Product discovery
     const productsData = await extractProducts(page);
     console.log(productsData, 'Finished product discovery');
 
-    // Product Detail Extraction for each product
+    // Product detail Extraction for each product
     const detailedProducts = [];
     for (const product of productsData) {
       try {
@@ -39,7 +39,7 @@ export const scrapeEtsy = async () => {
       }
     }
 
-    // Simulate Adding the First Product to the Cart
+    // Simulate adding the first Product to the Cart
     if (detailedProducts.length > 0) {
       console.log(`Adding first product to cart: ${detailedProducts[0].url}`);
       await simulateAddToCart(browser, detailedProducts[0].url);
