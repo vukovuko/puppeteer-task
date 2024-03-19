@@ -1,28 +1,29 @@
 import { Browser, Page } from 'puppeteer';
 import puppeteer from 'puppeteer-extra';
+import { TimeoutError } from 'puppeteer';
 import AdblockerPlugin from 'puppeteer-extra-plugin-adblocker';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import { createProduct } from '../models/product';
 import { extractProducts, extractProductDetails } from '../utils/scraper';
-
-const PERSONALIZATION_TEXT = "Personalization text";
-const TYPING_DELAY = 100;
+import { PERSONALIZATION_TEXT, TIMEOUT, TYPING_DELAY } from '../utils/constants';
+import { NUMER_OF_PRODUCTS } from '../utils/constants';
+import { setupPage } from '../utils/helper';
 
 puppeteer.use(AdblockerPlugin()).use(StealthPlugin());
 
 export const scrapeEtsy = async () => {
-  const browser = await puppeteer.launch({ headless: false, defaultViewport: null });
+  const browser = await puppeteer.launch({ headless: false });
   try {
     const page = await browser.newPage();
 
-    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36');
-    await page.setExtraHTTPHeaders({ 'Accept-Language': 'en-US,en;q=0.9' });
+    await setupPage(page);
 
-    await page.goto('https://www.etsy.com', { waitUntil: 'networkidle0' });
-    await page.waitForSelector('[data-palette-listing-id]', { visible: true, timeout: 30000 });
+    await page.goto('https://www.etsy.com', { waitUntil: 'networkidle0' })
+
+    await page.waitForSelector('[data-palette-listing-id]', { visible: true, timeout: TIMEOUT });
 
     // Product discovery
-    const productsData = await extractProducts(page);
+    const productsData = await extractProducts(page, NUMER_OF_PRODUCTS);
     console.log(productsData, 'Finished product discovery');
 
     // Product detail Extraction for each product
@@ -51,12 +52,16 @@ export const scrapeEtsy = async () => {
 
     return detailedProducts;
   } catch (error) {
-    console.error(`Error during scraping:`, error);
+    if (TimeoutError) {
+      console.error('No products found on the page.', error);
+      // TODO: Go to collection page and try again
+    } else {
+      console.error(`Error during scraping:`, error);
+    }
   } finally {
     await browser.close();
   }
 };
-
 
 async function fetchProductDetails(browser: Browser, productUrl: string) {
   const detailPage = await browser.newPage();
@@ -70,7 +75,7 @@ async function fetchProductDetails(browser: Browser, productUrl: string) {
   } finally {
     await detailPage.close();
   }
-}
+};
 
 async function simulateAddToCart(browser: Browser, productUrl: string) {
   const page = await browser.newPage();
@@ -111,7 +116,7 @@ async function simulateAddToCart(browser: Browser, productUrl: string) {
     await page.waitForNavigation({ waitUntil: 'networkidle0' });
     await page.type('input[name="email_address"]', 'your_email@gmail.com', { delay: TYPING_DELAY });
     await page.type('input[name="email_address_confirmation"]', 'your_email@gmail.com', { delay: TYPING_DELAY });
-    await page.select('select[name="country_id"]', '189'); // No delay needed for select dropdown
+    await page.select('select[name="country_id"]', '189');
     await page.type('input[name="name"]', 'Your Full Name', { delay: TYPING_DELAY });
     await page.type('input[name="first_line"]', 'Your Street Address', { delay: TYPING_DELAY });
     await page.type('input[name="city"]', 'Novi Sad', { delay: TYPING_DELAY });
@@ -125,4 +130,4 @@ async function simulateAddToCart(browser: Browser, productUrl: string) {
 
   console.log(`Added to cart: ${productUrl}`);
   await page.close();
-}
+};

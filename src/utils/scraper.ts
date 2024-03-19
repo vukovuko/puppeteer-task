@@ -1,21 +1,24 @@
 import { Page } from 'puppeteer';
 import { Product } from '../models/product';
 
-export const extractProducts = async (page: Page): Promise<Product[]> => {
-  return await page.evaluate(() => {
-    // Evaluate cannot use module functions due to browser context
-    return Array.from(document.querySelectorAll('[data-palette-listing-id]')).map(el => {
-      const name = (el.querySelector('h3') as HTMLHeadingElement)?.textContent?.trim() ?? 'Unknown';
+export const extractProducts = async (page: Page, numberOfProducts: number): Promise<Product[]> => {
+  return await page.evaluate((limit) => {
+    // Slice the array to only include the first 10 products
+    return Array.from(document.querySelectorAll('[data-palette-listing-id]')).slice(0, limit).map(el => {
+      const nameElement = el.querySelector('h3') || el.querySelector('h2');
+      const name = nameElement?.textContent?.trim() ?? 'Unknown';
       const url = (el.querySelector('a') as HTMLAnchorElement)?.href ?? 'Unknown URL';
-      const priceElement = el.querySelector('.currency-value') as HTMLDivElement;
-      const price = priceElement ? `${priceElement.textContent?.trim()}` : 'Unknown Price';
+      const priceElement = el.querySelector('.currency-value');
+      const currencySymbol = el.querySelector('.currency-symbol')?.textContent ?? '';
+      const price = priceElement?.textContent?.trim() ? `${currencySymbol}${priceElement?.textContent.trim()}` : 'Unknown Price';
       const imageUrl = (el.querySelector('img') as HTMLImageElement)?.src ?? 'Unknown Image';
       return { name, price, url, imageUrl };
     });
-  });
+  }, numberOfProducts);
 };
 
-export const extractProductDetails = async (page: Page) => {
+export const extractProductDetails = async(page: Page) => {
+  // Get details from product pages
   return await page.evaluate(() => {
     const nameElement = document.querySelector('h1');
     const name = nameElement ? nameElement.textContent?.trim() : 'Unknown';
