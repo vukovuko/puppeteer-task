@@ -1,5 +1,6 @@
 import { scrapeEtsy } from './controllers/controller';
 import fs from 'fs/promises';
+import { TimeoutError } from 'puppeteer';
 
 async function startScraping() {
   try {
@@ -8,7 +9,12 @@ async function startScraping() {
     await fs.writeFile('scrapedProducts.json', jsonData, 'utf-8');
     console.log('Scraped Products:', products);
   } catch (error) {
-    console.error('Error during scraping:', error);
+    if (TimeoutError) {
+      console.log('CAPTCHA');
+      // TODO: Add CAPTCHA logic
+    } else {
+      console.error('Error during startScraping:', error);
+    }
   }
 }
 
