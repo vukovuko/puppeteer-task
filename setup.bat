@@ -1,4 +1,4 @@
 @echo off
-npm install
-npm run build
-npm run start
+call npm install
+call npm run build
+call npm run start
