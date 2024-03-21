@@ -33,6 +33,11 @@ npm run start
 ```
 You can use any other package manager such as yarn or pnpm, following their equivalent commands for installation and project start.
 
+To start the process with a custom URL, you can use the following command:
+```
+npm run start https://www.example.com
+```
+
 #### **EXPERIMENTAL: Alternative Docker Startup:
 https://github.com/vukovuko/puppeteer-task/tree/feature/6---dockerizing
 
