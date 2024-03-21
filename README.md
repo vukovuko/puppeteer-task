@@ -4,7 +4,7 @@ This project uses [Puppeteer](https://pptr.dev/) and Node.js for scripting and h
 
 ### Project Setup Instructions
 
-To get started with the project, follow these setup instructions:
+To get started with the project, follow these setup instructions
 
 Clone the project with 
 ```
@@ -33,12 +33,12 @@ npm run start
 ```
 You can use any other package manager such as yarn or pnpm, following their equivalent commands for installation and project start.
 
-To start the process with a custom URL, you can use the following command:
+To start the process with a custom URL, you can use the following command
 ```
 npm run start https://www.example.com
 ```
 
-#### **EXPERIMENTAL: Alternative Docker Startup:
+#### **EXPERIMENTAL: Alternative Docker Startup
 https://github.com/vukovuko/puppeteer-task/tree/feature/6---dockerizing
 
 For an alternative setup using Docker, follow the instructions below:
