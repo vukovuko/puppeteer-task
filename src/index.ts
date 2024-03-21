@@ -1,6 +1,6 @@
 import { scrapeEtsy } from './controllers/controller';
 import fs from 'fs/promises';
-import { TimeoutError } from 'puppeteer';
+import { ProtocolError, TimeoutError } from 'puppeteer';
 
 async function startScraping() {
   try {
@@ -9,9 +9,11 @@ async function startScraping() {
     await fs.writeFile('scrapedProducts.json', jsonData, 'utf-8');
     console.log('Scraped Products:', products);
   } catch (error) {
-    if (TimeoutError) {
+    if (error instanceof TimeoutError) {
       console.log('CAPTCHA');
       // TODO: Add CAPTCHA logic
+    } else if (error instanceof ProtocolError) {
+      console.log("Invalid URL. Please enter real URL.", ProtocolError);
     } else {
       console.error('Error during startScraping:', error);
     }
