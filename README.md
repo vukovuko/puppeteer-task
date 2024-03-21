@@ -1,8 +1,10 @@
 # Puppeteer assignment
 
-Project was buit using [Puppeteer](https://pptr.dev/) and Node.js for scripting and handling data extracted by Puppeteer.
+This project uses [Puppeteer](https://pptr.dev/) and Node.js for scripting and handling data extraction.
 
 ### Project Setup Instructions
+
+To get started with the project, follow these setup instructions:
 
 Clone the project with 
 ```
@@ -29,10 +31,12 @@ npm install
 npm run build
 npm run start
 ```
-You can use any other package manager such as yarn or pnpm.
+You can use any other package manager such as yarn or pnpm, following their equivalent commands for installation and project start.
 
 #### **EXPERIMENTAL: Alternative Docker Startup:
 https://github.com/vukovuko/puppeteer-task/tree/feature/6---dockerizing
+
+For an alternative setup using Docker, follow the instructions below:
 ```
 git checkout feature/6---dockerizing
 docker build -t puppeteer-app .
@@ -52,8 +56,8 @@ Dynamic content loading, CAPTCHAs and variant picker changes were one of the mai
 
 ### Features
 
-Script discovers products on the homepage, extract their details, then navigates to their perspective detail page and extracts detailed information such as product name, price, description, available sizes and one image URL. 
+The script finds products on the homepage and extracts their details. Then, it navigates to each product's detail page to gather more information like product name, price, description, available sizes, and an image URL.
 
-After that is finished, script simulated adding products to the cart and simulates the checkout process up to the point of payment.
+Next, it simulates adding products to the cart and goes through the checkout process up to the payment stage.
 
 After that is finished, the data extracted from the products is written to the `scrapedProducts.json` file in the project directory.
