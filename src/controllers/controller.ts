@@ -26,8 +26,6 @@ const argv = yargs(process.argv.slice(2)).usage('Usage: $0 [options]').option('u
 
 export const scrapeEtsy = async () => {
   const browser = await puppeteer.launch({ headless: argv.headless });
-  console.log(argv.headless);
-  console.log(argv.url);
   try {
     const defaultUrl = 'https://www.etsy.com';
     const url = argv.url || defaultUrl;
