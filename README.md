@@ -2,7 +2,7 @@
 
 Project was buit using [Puppeteer](https://pptr.dev/) and Node.js for scripting and handling data extracted by Puppeteer.
 
-### Project setup instructions
+### Project Setup Instructions
 
 Clone the project with 
 ```
@@ -31,7 +31,7 @@ npm run start
 ```
 You can use any other package manager such as yarn or pnpm.
 
-#### **EXPERIMENTAL: Alternative docker startup:
+#### **EXPERIMENTAL: Alternative Docker Startup:
 https://github.com/vukovuko/puppeteer-task/tree/feature/6---dockerizing
 ```
 git checkout feature/6---dockerizing
@@ -41,12 +41,12 @@ docker run -p 4000:4000 puppeteer-app
 
 After finishing the program you should have JSON file called `scrapedProducts.json` inside the directory.
 
-### Assumptions made during development
+### Assumptions Made During Development
 
 This script is developed and tested on Node.js version v20.10.0 on Windows 10 and on WSL2 Ubuntu 22.04.4 LTS (Windows Subsystem for Linux).
 The target website structure is assumed to remain constant.
 
-### Potential challenges
+### Potential Challenges
 
 Dynamic content loading, CAPTCHAs and variant picker changes were one of the main challenges for this project.
 
