@@ -40,7 +40,3 @@ async function acceptCookiesFromPopup(page: Page, popupSelector: string, acceptB
     return false;
   }
 };
-
-function randomDelay(minDelay: number, maxDelay: number): number {
-  return Math.random() * (maxDelay - minDelay) + minDelay;
-};

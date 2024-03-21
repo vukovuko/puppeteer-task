@@ -1,4 +1,4 @@
-import { Browser, Page } from 'puppeteer';
+import { Browser, Page, ProtocolError } from 'puppeteer';
 import puppeteer from 'puppeteer-extra';
 import { TimeoutError } from 'puppeteer';
 import AdblockerPlugin from 'puppeteer-extra-plugin-adblocker';
@@ -8,17 +8,28 @@ import { extractProducts, extractProductDetails } from '../utils/scraper';
 import { PERSONALIZATION_TEXT, TIMEOUT, TYPING_DELAY } from '../utils/constants';
 import { NUMER_OF_PRODUCTS } from '../utils/constants';
 import { setupPage } from '../utils/helper';
+import yargs from 'yargs';
 
 puppeteer.use(AdblockerPlugin()).use(StealthPlugin());
+
+const argv = yargs(process.argv.slice(2)).usage('Usage: $0 [options]').option('url', {
+  alias: 'u',
+  describe: 'URL to scape',
+  type: 'string',
+  demandOption: false
+}).argv;
 
 export const scrapeEtsy = async () => {
   const browser = await puppeteer.launch({ headless: false });
   try {
+    const defaultUrl = 'https://www.etsy.com';
+    const url = process.argv[2] || defaultUrl;
+
     const page = await browser.newPage();
 
     await setupPage(page);
 
-    await page.goto('https://www.etsy.com', { waitUntil: 'networkidle0' })
+    await page.goto(url, { waitUntil: 'networkidle0' })
 
     await page.waitForSelector('[data-palette-listing-id]', { visible: true, timeout: TIMEOUT });
 
@@ -52,9 +63,11 @@ export const scrapeEtsy = async () => {
 
     return detailedProducts;
   } catch (error) {
-    if (TimeoutError) {
+    if (error instanceof TimeoutError) {
       console.error('No products found on the page.', error);
       // TODO: Go to collection page and try again
+    } else if (error instanceof ProtocolError) {
+      console.log("Invalid URL. Please enter real URL.", ProtocolError);
     } else {
       console.error(`Error during scraping:`, error);
     }
