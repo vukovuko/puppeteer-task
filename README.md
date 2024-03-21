@@ -4,7 +4,7 @@ This project uses [Puppeteer](https://pptr.dev/) and Node.js for scripting and h
 
 ### Project Setup Instructions
 
-To get started with the project, follow these setup instructions
+To get started with the project, follow these setup instructions:
 
 Clone the project with 
 ```
@@ -48,7 +48,7 @@ docker build -t puppeteer-app .
 docker run -p 4000:4000 puppeteer-app
 ```
 
-After finishing the program you should have JSON file called `scrapedProducts.json` inside the directory.
+***After finishing the program you should have JSON file called `scrapedProducts.json` inside the program directory.***
 
 ### Assumptions Made During Development
 
