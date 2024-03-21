@@ -35,7 +35,11 @@ You can use any other package manager such as yarn or pnpm, following their equi
 
 To start the process with a custom URL, you can use the following command
 ```
-npm run start https://www.example.com
+npm run start -- --url=https://www.example.com
+```
+or change whether the browser windows opens when the program stars
+```
+npm run start -- --headless=true
 ```
 
 #### **EXPERIMENTAL: Alternative Docker Startup
