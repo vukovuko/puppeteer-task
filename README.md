@@ -43,7 +43,7 @@ npm run start -- --headless=true
 ```
 
 #### **EXPERIMENTAL: Alternative Docker Startup
-https://github.com/vukovuko/puppeteer-task/tree/feature/6---dockerizing
+[Docker branch](https://github.com/vukovuko/puppeteer-task/tree/feature/6---dockerizing)
 
 For an alternative setup using Docker, follow the instructions below:
 ```
