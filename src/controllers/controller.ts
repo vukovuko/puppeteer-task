@@ -8,7 +8,7 @@ import { extractProducts, extractProductDetails } from '../utils/scraper';
 import { PERSONALIZATION_TEXT, TIMEOUT, TYPING_DELAY } from '../utils/constants';
 import { NUMER_OF_PRODUCTS } from '../utils/constants';
 import { setupPage } from '../utils/helper';
-import yargs from 'yargs';
+import yargs, { boolean } from 'yargs';
 
 puppeteer.use(AdblockerPlugin()).use(StealthPlugin());
 
@@ -17,13 +17,20 @@ const argv = yargs(process.argv.slice(2)).usage('Usage: $0 [options]').option('u
   describe: 'URL to scape',
   type: 'string',
   demandOption: false
-}).argv;
+}).option('headless', {
+  alias: 'h',
+  describe: 'Launch Puppeteer in headless mode',
+  type: 'boolean',
+  default: false
+}).help("help", "h").parseSync();
 
 export const scrapeEtsy = async () => {
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({ headless: argv.headless });
+  console.log(argv.headless);
+  console.log(argv.url);
   try {
     const defaultUrl = 'https://www.etsy.com';
-    const url = process.argv[2] || defaultUrl;
+    const url = argv.url || defaultUrl;
 
     const page = await browser.newPage();
 
