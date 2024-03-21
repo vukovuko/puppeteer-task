@@ -1,1 +1,0 @@
-const testing = 10;
